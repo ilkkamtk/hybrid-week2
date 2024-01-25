@@ -1,0 +1,48 @@
+type MediaItem {
+  media_id: ID!
+  user_id: ID!
+  filename: String!
+  thumbnail: String!
+  filesize: Int!
+  media_type: String!
+  title: String!
+  description: String
+  created_at: String!
+  tags: [Tag]
+}
+
+type MediaResponse {
+  message: String!
+  media: MediaItem!
+}
+
+type Query {
+  mediaItems: [MediaItem]
+  mediaItem(media_id: ID!): MediaItem
+  mediaItemsByTag(tag: String!): [MediaItem]
+}
+
+input MediaItemInput {
+  user_id: ID!
+  filename: String!
+  filesize: Int!
+  media_type: String!
+  title: String!
+  description: String
+}
+
+input MediaItemUpdateInput {
+  title: String
+  description: String
+}
+
+input AddTagToMediaItemInput {
+  media_id: ID!
+  tag_name: String!
+}
+
+type Mutation {
+  createMediaItem(input: MediaItemInput!): MediaItem
+  addTagToMediaItem(input: AddTagToMediaItemInput!): MediaItem
+  updateMediaItem(input: MediaItemUpdateInput!, media_id: ID!): MediaResponse
+}
