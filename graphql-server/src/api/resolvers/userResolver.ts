@@ -3,6 +3,14 @@ import {fetchData} from '../../lib/functions';
 import {LoginResponse, UserResponse} from '@sharedTypes/MessageTypes';
 
 export default {
+  MediaItem: {
+    owner: async (parent: {user_id: string}) => {
+      const user = await fetchData<UserWithNoPassword>(
+        process.env.AUTH_SERVER + '/users/' + parent.user_id,
+      );
+      return user;
+    },
+  },
   Query: {
     users: async () => {
       const users = await fetchData<UserWithNoPassword[]>(

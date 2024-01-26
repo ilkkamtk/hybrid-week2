@@ -9,6 +9,7 @@ type MediaItem {
   description: String
   created_at: String!
   tags: [Tag]
+  owner: User
 }
 
 type MediaResponse {
@@ -23,7 +24,6 @@ type Query {
 }
 
 input MediaItemInput {
-  user_id: ID!
   filename: String!
   filesize: Int!
   media_type: String!
