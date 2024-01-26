@@ -11,17 +11,24 @@ type UserResponse {
   message: String!
 }
 
+type LoginResponse {
+  user: User!
+  token: String!
+  message: String!
+}
+
 type Query {
   users: [User]
   user(user_id: ID!): User
 }
 
 input UserInput {
-  username: String!
-  email: String!
-  password: String!
+  username: String! @constraint(minLength: 3, maxLength: 255)
+  email: String! @constraint(format: "email")
+  password: String! @constraint(pattern: "(?=.*[0-9])")
 }
 
 type Mutation {
   createUser(input: UserInput!): UserResponse
+  login(username: String!, password: String!): LoginResponse
 }
